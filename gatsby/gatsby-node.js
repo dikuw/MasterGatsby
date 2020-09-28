@@ -80,6 +80,6 @@ export async function sourceNodes(params) {
 export async function createPages(params) {
   await Promise.all([
     createPizzaPages(params),
-    createToppingPages(params)
+    createToppingPages(params),
   ]);
 }
