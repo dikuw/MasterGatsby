@@ -71,6 +71,36 @@ async function fetchBeers({ actions, createNodeId, createContentDigest }) {
   }
 }
 
+async function createSlicemastersPages({ graphql, actions }) {
+  const { data } = await graphql(`
+    query {
+      persons: allSanityPerson {
+        nodes {
+          name
+          id
+          slug {
+            current
+          }
+        }
+        totalCount
+      }
+    }
+  `);
+  const pageSize = parseInt(process.env.GATSBY_PAGE_SIZE);
+  const pageCount = Math.ceil(data.persons.totalCount / pageSize );
+  Array.from({ length: pageCount }).forEach((_, i) => {
+    actions.createPage({
+      path: `slicemasters/${i + 1}`,
+      component: path.resolve('./src/pages/slicemasters.js'),
+      context: {
+        skip: i * pageSize,
+        currentPage: i + 1,
+        pageSize,
+      }
+    });
+  });
+}
+
 export async function sourceNodes(params) {
   await Promise.all([
     fetchBeers(params),
@@ -81,5 +111,6 @@ export async function createPages(params) {
   await Promise.all([
     createPizzaPages(params),
     createToppingPages(params),
+    createSlicemastersPages(params),
   ]);
 }
