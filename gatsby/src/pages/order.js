@@ -7,6 +7,7 @@ import useForm from '../utils/useForm';
 import usePizza from '../utils/usePizza';
 import calcPizzaPrice from '../utils/calcPizzaPrice';
 import formatMoney from '../utils/formatMoney';
+import calcOrderTotal from '../utils/calcOrderTotal';
 import OrderStyles from '../styles/OrderStyles';
 import MenuItemStyles from '../styles/MenuItemStyles';
 
@@ -55,6 +56,10 @@ export default function OrderPage({ data }) {
         <fieldset className="order">
           <legend>Order</legend>
           <Order order={order} pizzas={pizzas} removeFromOrder={removeFromOrder} />
+        </fieldset>
+        <fieldset>
+          <h3>Your Total is {formatMoney(calcOrderTotal(order, pizzas))}</h3>
+          <button type="submit">Order Ahead</button>
         </fieldset>
       </OrderStyles>
     </>
