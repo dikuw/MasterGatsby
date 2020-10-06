@@ -10,7 +10,7 @@ export default function Order({ order, pizzas, removeFromOrder, }) {
       {order.map((item, index) => {
         const pizza = pizzas.find(pizza => pizza.id === item.id);
         return (
-          <MenuItemStyles key={item.id}>
+          <MenuItemStyles key={`${item.id}-${index}`}>
             <Img fluid={pizza.image.asset.fluid} />
             <h2>{pizza.name}</h2>
             <p>
