@@ -16,6 +16,7 @@ export default function OrderPage({ data }) {
   const { values, updateValue } = useForm({
     name: '',
     email: '',
+    mapleSyrup: '',
   });
   const { order, addToOrder, removeFromOrder, submitOrder, error, loading, message } = usePizza({
     pizzas,
@@ -34,6 +35,7 @@ export default function OrderPage({ data }) {
           <input type="text" name="name" value={values.name} onChange={updateValue}></input>
           <label htmlFor="email">Email</label>
           <input type="text" name="email" value={values.email} onChange={updateValue}></input>
+          <input type="text" name="mapleSyrup" value={values.mapleSyrup} onChange={updateValue} className="mapleSyrup" ></input>
         </fieldset>
         <fieldset className="menu" disabled={loading}>
           <legend>Menu</legend>
