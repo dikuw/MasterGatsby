@@ -28,14 +28,14 @@ export default function OrderPage({ data }) {
     <>
       <SEO title={'Order a pizza'} />
       <OrderStyles onSubmit={submitOrder} >
-        <fieldset>
+        <fieldset disabled={loading}>
           <legend>Your Info</legend>
           <label htmlFor="name">Name</label>
           <input type="text" name="name" value={values.name} onChange={updateValue}></input>
           <label htmlFor="email">Email</label>
           <input type="text" name="email" value={values.email} onChange={updateValue}></input>
         </fieldset>
-        <fieldset className="menu">
+        <fieldset className="menu" disabled={loading}>
           <legend>Menu</legend>
           {pizzas.map(pizza => (
             <MenuItemStyles key={pizza.id}>
@@ -56,11 +56,11 @@ export default function OrderPage({ data }) {
             </MenuItemStyles>
           ))}
         </fieldset>
-        <fieldset className="order">
+        <fieldset className="order" disabled={loading}>
           <legend>Order</legend>
           <Order order={order} pizzas={pizzas} removeFromOrder={removeFromOrder} />
         </fieldset>
-        <fieldset>
+        <fieldset disabled={loading}>
           <h3>Your Total is {formatMoney(calcOrderTotal(order, pizzas))}</h3>
           <div>
             {error ? <p>Error: {error}</p> : ''}

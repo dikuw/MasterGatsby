@@ -32,6 +32,12 @@ const transporter = nodemailer.createTransport({
   }
 });
 
+function wait(ms = 0) {
+  return new Promise((resolve, reject) => {
+    setTimeout(resolve, ms);
+  });
+}
+
 exports.handler = async (event, context) => {
   const body = JSON.parse(event.body);
   
@@ -45,6 +51,13 @@ exports.handler = async (event, context) => {
     }
   }
 
+  if (!body.order.length) {
+    return {
+      statusCode: 400,
+      body: JSON.stringify({message: `You didn't order anything! Please try again.`})
+    }
+  }
+  
   const info = await transporter.sendMail({
     from: "Slick's Slices <slice@example.com>",
     to: `${body.name} <${body.email}>, orders@example.com`,
@@ -53,6 +66,6 @@ exports.handler = async (event, context) => {
   });
   return {
     statusCode: 200,
-    body: JSON.stringify({ message: 'Success' }),
+    body: JSON.stringify({ message: 'Success. A receipt has been sent to your email.' }),
   }
 }
