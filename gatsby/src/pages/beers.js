@@ -59,6 +59,7 @@ export const query = graphql`
   query {
     beers: allBeer {
       nodes {
+        id
         name
         price
         rating {
