@@ -39,6 +39,7 @@ const NavStyles = styled.nav`
   a { 
     font-size: 3rem;
     text-decoration: none;
+    display: block;
     &:hover {
       color: var(--red);
     }
